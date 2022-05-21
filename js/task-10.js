@@ -9,35 +9,50 @@ const createBtnEl = document.querySelector('#controls > button[data-create]')
 const destroyBtnEl = document.querySelector('#controls > button[data-destroy]')
 const boxOfElement = document.querySelector('#boxes')
 
+
 function createBoxes(amount) {
-  
+  let newElements;
+  let total = 20
+
   for (let i = 1; i <= amount; i += 1) {
-    let newElements = document.createElement('div')
-    newElements.style.cssText = 'width:30px; height:30px;'
+      total += 10
+
+    newElements = document.createElement('div')
+    newElements.classList.add('newEl')
+    newElements.style.width = `${total}px`;
+    newElements.style.height = `${total}px`;
     newElements.style.backgroundColor = getRandomHexColor();
-    boxes.appendChild(newElements)
+
+    boxOfElement.appendChild(newElements)
   }
 }
-  
 
-  // console.log(newElements);
-  // return newElements;
 
+
+function destroyBoxes() {
+  const newCreateEl = document.querySelectorAll('.newEl')
+  newCreateEl.forEach(el => el.remove())
+}
+const onRemoveElements = (event) => {
+    destroyBoxes()
+}
 
 
 
 const onCreateElements = (event) => {
-  console.log(createBoxes(10));
-  
+  createBoxes(Number(inputOfNumberEl.textContent))
+
 };
 
 
 const onNumberOfInput = (event) => {
-  constnumberOfInputEl = Number(event.currentTarget.value);
+  inputOfNumberEl.innerHTML = event.target.value
 };
 
-// console.log(numberOfInputEl);
+
+
 
 
 createBtnEl.addEventListener('click', onCreateElements)
 inputOfNumberEl.addEventListener('input', onNumberOfInput)
+destroyBtnEl.addEventListener('click', onRemoveElements)
